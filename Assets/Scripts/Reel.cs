@@ -3,11 +3,11 @@ using UnityEngine;
 public class Reel : MonoBehaviour
 {
     [Header("Spin Settings")]
-    public float maxSpinSpeed = 15f;        // Max speed during spin
-    public float acceleration = 25f;        // Speed-up rate
-    public float deceleration = 20f;        // Slow-down rate
-    public float symbolHeight = 2f;         // Vertical spacing between symbols
-    public Sprite[] symbols;                // Available symbols
+    public float maxSpinSpeed = 15f;        // Max speed
+    public float acceleration = 25f;        // Speed up rate
+    public float deceleration = 20f;        // Slow down rate
+    public float symbolHeight = 2f;         // space between symbols
+    public Sprite[] symbols;                // all symbols
 
     private bool isSpinning = false;
     private float currentSpeed = 0f;
@@ -19,7 +19,7 @@ public class Reel : MonoBehaviour
     {
         if (!isSpinning) return;
 
-        // Adjust speed based on current phase
+        // Adjust speed 
         if (!slowingDown)
             currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpinSpeed, acceleration * Time.deltaTime);
         else
@@ -29,7 +29,7 @@ public class Reel : MonoBehaviour
         {
             child.localPosition += Vector3.down * currentSpeed * Time.deltaTime;
 
-            // Recycle symbol from bottom to top
+            // Rotating symbols from bottom to top
             if (child.localPosition.y < -symbolHeight * 1.5f)
             {
                 float topY = GetHighestSymbolY() + symbolHeight;
@@ -40,11 +40,11 @@ public class Reel : MonoBehaviour
 
         spinTimer += Time.deltaTime;
 
-        // Start slowing near the end
+        // Start slowing at the end
         if (!slowingDown && spinTimer >= spinDuration * 0.8f)
             slowingDown = true;
 
-        // Stop completely when speed reaches zero
+        // Stop completely when speed=zero
         if (slowingDown && currentSpeed <= 0.01f)
         {
             SnapToGrid();

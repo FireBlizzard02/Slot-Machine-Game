@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void SetBetAndSpin(int amount)
+    private void SetBetAndSpin(int amount)              // start the spin and set betting amount
     {
         if (BetAndCurrencyManager.Instance.currentBalance >= amount)
         {
@@ -50,13 +50,13 @@ public class UIManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void OnSpinFinished()
+    private void OnSpinFinished()                      // button enabled
     {
         SetBetButtonsActive(true);
         UpdateUI();
     }
 
-    private void UpdateUI()
+    private void UpdateUI()                          // update ui elements
     {
         if (balanceText)
             balanceText.text = $"Balance: {BetAndCurrencyManager.Instance.currentBalance}";
@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
         if (bet100Button) bet100Button.interactable = BetAndCurrencyManager.Instance.currentBalance >= 100;
     }
 
-    private void SetBetButtonsActive(bool active)
+    private void SetBetButtonsActive(bool active)                 // 
     {
         if (betButtonsParent != null)
             betButtonsParent.SetActive(active);

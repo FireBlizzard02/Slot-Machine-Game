@@ -4,13 +4,13 @@ using System.Collections;
 
 public class SlotMachineController : MonoBehaviour
 {
-    public static event Action OnSpinComplete;
+    public static event Action OnSpinComplete;        // events for tracking spin
 
     public Reel[] reels;
-    public float spinTime = 2f;
+    public float spinTime = 2f;                      // total spin time
     public float delayBetweenReels = 0.5f;
 
-    public void SpinAll()
+    public void SpinAll()                           // spin reel
     {
         if (!BetAndCurrencyManager.Instance.CanSpin())
         {
@@ -22,7 +22,7 @@ public class SlotMachineController : MonoBehaviour
         StartCoroutine(SpinRoutine());
     }
 
-    private IEnumerator SpinRoutine()
+    private IEnumerator SpinRoutine()                 // spin delays b/w reels
     {
         for (int i = 0; i < reels.Length; i++)
         {
@@ -38,7 +38,7 @@ public class SlotMachineController : MonoBehaviour
         CheckReward();
     }
 
-    private void CheckReward()
+    private void CheckReward()                         // wining logic
     {
         Sprite[] results = new Sprite[reels.Length];
 
