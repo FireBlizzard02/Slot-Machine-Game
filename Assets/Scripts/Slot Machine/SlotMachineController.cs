@@ -22,21 +22,33 @@ public class SlotMachineController : MonoBehaviour
         StartCoroutine(SpinRoutine());
     }
 
-    private IEnumerator SpinRoutine()                 // spin delays b/w reels
+    private IEnumerator SpinRoutine()
     {
         for (int i = 0; i < reels.Length; i++)
         {
             reels[i].Spin(spinTime + (i * delayBetweenReels));
-
             AudioManager.Instance.PlaySFX(AudioManager.Instance.spinRattle);
-
             yield return new WaitForSeconds(0.1f);
         }
 
-        yield return new WaitForSeconds(spinTime + (reels.Length - 1) * delayBetweenReels);
+        bool allStopped = false;
+        while (!allStopped)
+        {
+            allStopped = true;
+            foreach (var reel in reels)
+            {
+                if (reel.IsSpinning()) 
+                {
+                    allStopped = false;
+                    break;
+                }
+            }
+            yield return null; 
+        }
 
         CheckReward();
     }
+
 
     private void CheckReward()                         // wining logic
     {
@@ -56,7 +68,7 @@ public class SlotMachineController : MonoBehaviour
             // Play big win sound
             AudioManager.Instance.PlaySFX(AudioManager.Instance.winBig);
 
-            OnSpinComplete?.Invoke();  
+            OnSpinComplete?.Invoke();
             return;
         }
 
@@ -69,7 +81,7 @@ public class SlotMachineController : MonoBehaviour
             // Play small win sound
             AudioManager.Instance.PlaySFX(AudioManager.Instance.winSmall);
 
-            OnSpinComplete?.Invoke(); 
+            OnSpinComplete?.Invoke();
             return;
         }
 
@@ -79,6 +91,6 @@ public class SlotMachineController : MonoBehaviour
         // Play lose sound
         AudioManager.Instance.PlaySFX(AudioManager.Instance.lose);
 
-        OnSpinComplete?.Invoke();  
+        OnSpinComplete?.Invoke();
     }
 }

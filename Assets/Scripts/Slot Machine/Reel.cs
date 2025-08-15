@@ -33,7 +33,7 @@ public class Reel : MonoBehaviour
             if (child.localPosition.y < -symbolHeight * 1.5f)
             {
                 float topY = GetHighestSymbolY() + symbolHeight;
-                child.localPosition = new Vector3(0, topY , 0);
+                child.localPosition = new Vector3(0, topY, 0);
                 child.GetComponent<SpriteRenderer>().sprite = symbols[Random.Range(0, symbols.Length)];
             }
         }
@@ -98,4 +98,10 @@ public class Reel : MonoBehaviour
 
         return closest != null ? closest.GetComponent<SpriteRenderer>().sprite : null;
     }
+
+    public bool IsSpinning()
+    {
+        return isSpinning;
+    }
+
 }
