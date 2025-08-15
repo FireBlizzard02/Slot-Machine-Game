@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1008b88150188e49a599cbc1f4b21f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 10
+  maxSpinSpeed: 17
+  acceleration: 12
+  deceleration: 11
   symbolHeight: 1.5
   symbols:
   - {fileID: 21300000, guid: 3f74b68477303e24a8a8e8e76ee0a525, type: 3}

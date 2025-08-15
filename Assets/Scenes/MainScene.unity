@@ -1650,15 +1650,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135208615696271622, guid: 7acdc29b2dc16fc458f462defd26b95d, type: 3}
       propertyPath: acceleration
-      value: 17
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1135208615696271622, guid: 7acdc29b2dc16fc458f462defd26b95d, type: 3}
       propertyPath: deceleration
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1135208615696271622, guid: 7acdc29b2dc16fc458f462defd26b95d, type: 3}
       propertyPath: maxSpinSpeed
-      value: 20
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2199413734162355386, guid: 7acdc29b2dc16fc458f462defd26b95d, type: 3}
       propertyPath: m_LocalPosition.x

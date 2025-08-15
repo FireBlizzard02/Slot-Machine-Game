@@ -3,51 +3,48 @@ using UnityEngine;
 public class Reel : MonoBehaviour
 {
     [Header("Spin Settings")]
-    public float maxSpinSpeed = 15f;        // Peak speed while spinning
-    public float acceleration = 25f;        // How quickly the reel speeds up
-    public float deceleration = 20f;        // How quickly the reel slows down
-    public float symbolHeight = 2f;         // Distance between symbols
-    public Sprite[] symbols;                // All possible symbols
+    public float maxSpinSpeed = 15f;        // Max speed during spin
+    public float acceleration = 25f;        // Speed-up rate
+    public float deceleration = 20f;        // Slow-down rate
+    public float symbolHeight = 2f;         // Vertical spacing between symbols
+    public Sprite[] symbols;                // Available symbols
 
     private bool isSpinning = false;
-    private float currentSpeed = 0f;        // Current spin speed
-    private float spinTimer = 0f;           // Time spent spinning
-    private float spinDuration = 0f;        // Total spin time before stopping
-
-    private bool slowingDown = false;       // Flag to start deceleration
+    private float currentSpeed = 0f;
+    private float spinTimer = 0f;
+    private float spinDuration = 0f;
+    private bool slowingDown = false;
 
     private void Update()
     {
         if (!isSpinning) return;
 
-        // Smooth acceleration at start
+        // Adjust speed based on current phase
         if (!slowingDown)
             currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpinSpeed, acceleration * Time.deltaTime);
         else
             currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.deltaTime);
 
-        // Move each symbol
         foreach (Transform child in transform)
         {
             child.localPosition += Vector3.down * currentSpeed * Time.deltaTime;
 
-            // If symbol goes off the bottom, move it to the top with a new random symbol
+            // Recycle symbol from bottom to top
             if (child.localPosition.y < -symbolHeight * 1.5f)
             {
                 float topY = GetHighestSymbolY() + symbolHeight;
-                child.localPosition = new Vector3(0, topY, 0);
+                child.localPosition = new Vector3(0, topY , 0);
                 child.GetComponent<SpriteRenderer>().sprite = symbols[Random.Range(0, symbols.Length)];
             }
         }
 
-        // Track total spin time
         spinTimer += Time.deltaTime;
 
-        // Start slowing down before final stop
+        // Start slowing near the end
         if (!slowingDown && spinTimer >= spinDuration * 0.8f)
             slowingDown = true;
 
-        // When speed reaches zero, snap to grid and stop completely
+        // Stop completely when speed reaches zero
         if (slowingDown && currentSpeed <= 0.01f)
         {
             SnapToGrid();
@@ -61,7 +58,7 @@ public class Reel : MonoBehaviour
         spinTimer = 0f;
         isSpinning = true;
         slowingDown = false;
-        currentSpeed = 0f; // start from zero for acceleration effect
+        currentSpeed = 0f;
     }
 
     private float GetHighestSymbolY()
