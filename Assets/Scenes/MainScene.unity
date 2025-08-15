@@ -403,7 +403,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1008b88150188e49a599cbc1f4b21f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 800
+  spinSpeed: 10
+  symbolHeight: 1.5
+  symbols:
+  - {fileID: 21300000, guid: 3f74b68477303e24a8a8e8e76ee0a525, type: 3}
+  - {fileID: 21300000, guid: 32d3f51b8b1fce346906290bf196c2ff, type: 3}
+  - {fileID: 21300000, guid: e9455ad41d836224ea891fa0e41d4551, type: 3}
+  - {fileID: 21300000, guid: 35f41b14e4259e447acf52bc830cc73e, type: 3}
 --- !u!4 &262549608
 Transform:
   m_ObjectHideFlags: 0
@@ -966,7 +972,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1008b88150188e49a599cbc1f4b21f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 800
+  spinSpeed: 10
+  symbolHeight: 1.5
+  symbols:
+  - {fileID: 21300000, guid: 3f74b68477303e24a8a8e8e76ee0a525, type: 3}
+  - {fileID: 21300000, guid: 32d3f51b8b1fce346906290bf196c2ff, type: 3}
+  - {fileID: 21300000, guid: e9455ad41d836224ea891fa0e41d4551, type: 3}
+  - {fileID: 21300000, guid: 35f41b14e4259e447acf52bc830cc73e, type: 3}
 --- !u!4 &688024868
 Transform:
   m_ObjectHideFlags: 0
@@ -1511,9 +1523,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2008391161}
-        m_TargetAssemblyTypeName: SlotMachine, Assembly-CSharp
-        m_MethodName: OnHandlePulled
+      - m_Target: {fileID: 1648599583}
+        m_TargetAssemblyTypeName: HandleController, Assembly-CSharp
+        m_MethodName: PullHandle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1742,9 +1754,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab339eb6bb16e244adc3b9e0971721c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handleUp: {fileID: 21300000, guid: 3aebf835aaee31c4e8055ec550f581b8, type: 3}
-  handleDown: {fileID: 21300000, guid: a20e0d1a12afb404f97111bd88400180, type: 3}
-  returnDelay: 0.3
+  handleImage: {fileID: 1648599581}
+  handleUpSprite: {fileID: 21300000, guid: 3aebf835aaee31c4e8055ec550f581b8, type: 3}
+  handleDownSprite: {fileID: 21300000, guid: a20e0d1a12afb404f97111bd88400180, type: 3}
+  slotMachine: {fileID: 2008391161}
+  handleDownTime: 0.5
 --- !u!1 &1682583694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,7 +1956,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1008b88150188e49a599cbc1f4b21f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinSpeed: 800
+  spinSpeed: 10
+  symbolHeight: 1.5
+  symbols:
+  - {fileID: 21300000, guid: 3f74b68477303e24a8a8e8e76ee0a525, type: 3}
+  - {fileID: 21300000, guid: 32d3f51b8b1fce346906290bf196c2ff, type: 3}
+  - {fileID: 21300000, guid: e9455ad41d836224ea891fa0e41d4551, type: 3}
+  - {fileID: 21300000, guid: 35f41b14e4259e447acf52bc830cc73e, type: 3}
 --- !u!4 &1793853995
 Transform:
   m_ObjectHideFlags: 0
@@ -2212,12 +2232,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reels:
-  - {fileID: 688024868}
-  - {fileID: 1793853995}
-  - {fileID: 262549608}
-  spinSpeed: 500
-  spinDuration: 1
-  handleController: {fileID: 1648599583}
+  - {fileID: 688024867}
+  - {fileID: 1793853994}
+  - {fileID: 262549607}
+  spinTime: 2
+  delayBetweenReels: 0.5
 --- !u!4 &2008391162
 Transform:
   m_ObjectHideFlags: 0

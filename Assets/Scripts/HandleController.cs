@@ -1,30 +1,33 @@
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class HandleController : MonoBehaviour
 {
-    public SpriteRenderer handleRenderer;
+    public SpriteRenderer handleImage;              
     public Sprite handleUpSprite;
     public Sprite handleDownSprite;
-    public UnityEvent OnHandlePulled; // Assigned in Inspector
+
+    public SlotMachineController slotMachine; 
+
+    public float handleDownTime = 0.3f;      
 
     private bool isPulled = false;
 
-    private void OnMouseDown()
+    public void PullHandle()
     {
-        if (!isPulled)
-        {
-            isPulled = true;
-            handleRenderer.sprite = handleDownSprite;
+        if (isPulled) return;
+        isPulled = true;
 
-            // Trigger slot machine
-            OnHandlePulled?.Invoke();
-        }
+        handleImage.sprite = handleDownSprite;
+
+        slotMachine.SpinAll();
+
+        Invoke(nameof(ResetHandle), handleDownTime + slotMachine.spinTime*1.5f);
     }
 
-    private void OnMouseUp()
+    private void ResetHandle()
     {
-        handleRenderer.sprite = handleUpSprite;
+        handleImage.sprite = handleUpSprite;
         isPulled = false;
     }
 }

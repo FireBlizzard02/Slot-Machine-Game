@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Reel : MonoBehaviour
 {
-    public float spinSpeed = 5f;          // Speed of reel movement
-    public float symbolHeight = 2f;       // Height of one symbol sprite
-    public float spinDuration = 2f;       // How long the reel spins before stopping
-    public Sprite[] symbols;              // Your 4 symbol sprites
+    public float spinSpeed = 5f;
+    public float symbolHeight = 2f;
+    public Sprite[] symbols;
 
-    private float spinTimer = 0f;
     private bool isSpinning = false;
+    private float spinTimer = 0f;
+    private float spinDuration = 0f;
 
     private void Update()
     {
@@ -16,10 +16,8 @@ public class Reel : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
-                // Move symbol down
                 child.localPosition += Vector3.down * spinSpeed * Time.deltaTime;
 
-                // If it’s below the threshold, wrap it to top
                 if (child.localPosition.y < -symbolHeight * 1.5f)
                 {
                     float topY = GetHighestSymbolY() + symbolHeight;
@@ -37,9 +35,10 @@ public class Reel : MonoBehaviour
         }
     }
 
-    public void Spin()
+    public void Spin(float duration)
     {
         spinTimer = 0f;
+        spinDuration = duration;
         isSpinning = true;
     }
 
@@ -62,4 +61,26 @@ public class Reel : MonoBehaviour
             child.localPosition = new Vector3(child.localPosition.x, newY, child.localPosition.z);
         }
     }
+
+    public Sprite GetCenterSymbol()
+    {
+        Transform closest = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach (Transform child in transform)
+        {
+            float dist = Mathf.Abs(child.localPosition.y);
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closest = child;
+            }
+        }
+
+        if (closest != null)
+            return closest.GetComponent<SpriteRenderer>().sprite;
+
+        return null;
+    }
+
 }
