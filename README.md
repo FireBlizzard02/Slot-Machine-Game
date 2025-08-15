@@ -4,7 +4,7 @@ A simple yet fun **Slot Machine** game built in Unity with smooth reel animation
 
 
 ##  Play the Game
-  **[Play on GitHub Pages](https://yourusername.github.io/your-repo-name/)**
+  **[Play on GitHub Pages](https://fireblizzard02.github.io/Slot-Machine-Game/)**
 
 
 ##  Game Overview
