@@ -3,13 +3,13 @@ using UnityEngine.UI;
 
 public class HandleController : MonoBehaviour
 {
-    public SpriteRenderer handleImage;              
+    public SpriteRenderer handleImage;
     public Sprite handleUpSprite;
     public Sprite handleDownSprite;
 
-    public SlotMachineController slotMachine; 
+    public SlotMachineController slotMachine;
 
-    public float handleDownTime = 0.3f;      
+    public float handleDownTime = 0.3f;
 
     private bool isPulled = false;
 
@@ -20,9 +20,11 @@ public class HandleController : MonoBehaviour
 
         handleImage.sprite = handleDownSprite;
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.spinStart);
+
         slotMachine.SpinAll();
 
-        Invoke(nameof(ResetHandle), handleDownTime );
+        Invoke(nameof(ResetHandle), handleDownTime);
     }
 
     private void ResetHandle()

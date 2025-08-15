@@ -14,12 +14,11 @@ public class SlotMachineController : MonoBehaviour
     {
         if (!BetAndCurrencyManager.Instance.CanSpin())
         {
-            Debug.Log("No Money To COntinue!");
+            Debug.Log("No Money To Continue!");
             return;
         }
 
         BetAndCurrencyManager.Instance.DeductBet();
-
         StartCoroutine(SpinRoutine());
     }
 
@@ -28,6 +27,9 @@ public class SlotMachineController : MonoBehaviour
         for (int i = 0; i < reels.Length; i++)
         {
             reels[i].Spin(spinTime + (i * delayBetweenReels));
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.spinRattle);
+
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -50,6 +52,10 @@ public class SlotMachineController : MonoBehaviour
         {
             Debug.Log("Big Win! 3 symbols match!");
             BetAndCurrencyManager.Instance.RewardBigWin();
+
+            // Play big win sound
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.winBig);
+
             OnSpinComplete?.Invoke();  
             return;
         }
@@ -59,12 +65,20 @@ public class SlotMachineController : MonoBehaviour
         {
             Debug.Log("Small Win! 2 symbols match!");
             BetAndCurrencyManager.Instance.RewardSmallWin();
+
+            // Play small win sound
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.winSmall);
+
             OnSpinComplete?.Invoke(); 
             return;
         }
 
         // lose
         Debug.Log("You Lose");
+
+        // Play lose sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.lose);
+
         OnSpinComplete?.Invoke();  
     }
 }
