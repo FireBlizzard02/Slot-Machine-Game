@@ -22,7 +22,7 @@ public class HandleController : MonoBehaviour
 
         slotMachine.SpinAll();
 
-        Invoke(nameof(ResetHandle), handleDownTime + slotMachine.spinTime*1.5f);
+        Invoke(nameof(ResetHandle), handleDownTime );
     }
 
     private void ResetHandle()

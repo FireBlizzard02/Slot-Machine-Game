@@ -1,14 +1,25 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class SlotMachineController : MonoBehaviour
 {
+    public static event Action OnSpinComplete;
+
     public Reel[] reels;
     public float spinTime = 2f;
     public float delayBetweenReels = 0.5f;
 
     public void SpinAll()
     {
+        if (!BetAndCurrencyManager.Instance.CanSpin())
+        {
+            Debug.Log("No Money To COntinue!");
+            return;
+        }
+
+        BetAndCurrencyManager.Instance.DeductBet();
+
         StartCoroutine(SpinRoutine());
     }
 
@@ -38,6 +49,8 @@ public class SlotMachineController : MonoBehaviour
         if (results[0] == results[1] && results[1] == results[2])
         {
             Debug.Log("Big Win! 3 symbols match!");
+            BetAndCurrencyManager.Instance.RewardBigWin();
+            OnSpinComplete?.Invoke();  
             return;
         }
 
@@ -45,11 +58,13 @@ public class SlotMachineController : MonoBehaviour
         if (results[0] == results[1] || results[1] == results[2] || results[0] == results[2])
         {
             Debug.Log("Small Win! 2 symbols match!");
+            BetAndCurrencyManager.Instance.RewardSmallWin();
+            OnSpinComplete?.Invoke(); 
             return;
         }
 
         // lose
         Debug.Log("You Lose");
+        OnSpinComplete?.Invoke();  
     }
-
 }
